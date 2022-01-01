@@ -1,5 +1,6 @@
 const tmi = require("tmi.js");
 const fs = require('fs');
+require('dotenv').config();
 let dadJokes = [""];
 let quotes = [""];
 let ga = false;
@@ -12,10 +13,10 @@ const rl = readLine.createInterface({
 
 const opts = {
   identity: {
-    username: "CHANGE",
-    password: "CHANGE"
+    username: process.env.BOT_USERNAME ,
+    password: process.env.OAUTH_TOKEN
   },
-  channels:[ "CHANNEL NAME HERE"
+  channels:[ process.env.CHANNEL_NAME
 ]
 };
 
@@ -24,9 +25,7 @@ const client = new tmi.client(opts);
 fs.readFile('jokes.txt', 'utf8', function(err, data){
     dadJokes = data.split("\n");
 });
-fs.readFile('quotes.txt', 'utf8', function(err, data){
-    quotes = data.split("\n");
-});
+
 
 // Register our event handlers (defined below)
 client.on("message", onMessageHandler);
